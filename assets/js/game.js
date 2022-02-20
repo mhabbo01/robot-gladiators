@@ -121,9 +121,17 @@ var fightOrSkip = function() {
 var fight = function(enemy) {
   // while loop repeatedly executes the code block only if the condition remains true, in this case its player health greater than zero AND enemy health greater than zero.
   // the code for the fight function is inside the while loop.
+  
+  // keep track of who goes first
+  var isPlayerTurn = true;
+  //randomly change turn order
+    if (Math.random() > 0.5) {
+      isPlayerTurn = false;
+    }
+  
   while(playerInfo.health > 0 && enemy.health > 0) {
         // Alert players that they are starting the round
-
+    if (isPlayerTurn) {
         if (fightOrSkip()) {
           //if true, leave fight by breaking loop
           break;
@@ -136,11 +144,15 @@ var fight = function(enemy) {
         // check enemy's health
         if (enemy.health <= 0) {
           window.alert(enemy.name + " has died!");
+          //award player money for winning
           playerInfo.money = playerInfo.money + 20;
+          //leave loop since enemy is dead
           break;
         } else {
           window.alert(enemy.name + " still has " + enemy.health + " health left.");
         }
+          //player gets attacked first
+        } else {
         
         var damage = randomNumber(enemy.attack - 3, enemy.attack);
         // remove player's health by subtracting the amount set in the enemyAttack variable. math.max(0, variable) makes sure we dont get a negative number.
@@ -150,13 +162,15 @@ var fight = function(enemy) {
         // check player's health
         if (playerInfo.health <= 0) {
           window.alert(playerInfo.name + " has died!");
+          // leave while loop if player is dead
           break;
         } else {
           window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
         }
-        // if player choses to skip
-         
-          //if no (false), ask question again by running fight() again
+      } 
+        
+        // switch turn order for next round
+        isPlayerTurn = !isPlayerTurn;
           
         }  
 };
