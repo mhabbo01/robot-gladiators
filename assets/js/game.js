@@ -12,8 +12,17 @@ var randomNumber = function(min, max) {
   return value;
 }
 
+var getPLayerName = function() {
+  var name = "";
+  while (name === "" || name === null) {
+    name = prompt("What is your robot's name?");
+  }
+
+  console.log("Your robot's name is " + name);
+}
+
 var playerInfo = {
-  name: window.prompt("What is your robot's name?"),
+  name: getPLayerName(),
   health: 100,
   attack: 10,
   money: 10,
